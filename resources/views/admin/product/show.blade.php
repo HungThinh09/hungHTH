@@ -20,13 +20,21 @@
                     <ion-icon name="search-circle-outline"></ion-icon>&nbsp;Tìm Sản phẩm
                 </button>
             </form>
-            <a href="{{ route('product-show') }}" {{ $showAll && $showAll != '' ? '' : 'hidden' }}><button type="submit">Hiện
+            <a href="{{ route('product-show') }}" {{ $showAll && $showAll != '' ? '' : 'hidden' }}><button
+                    type="submit">Hiện
                     tất cả</button></a>
+                    @can('productRestore')
+                    <a class="btn btn-outline-primary float-right" href="{{ route('product-restore') }}">
+                        <ion-icon name="arrow-forward-outline"></ion-icon> Product đã xóa
+                    </a>
+                    @endcan
+                    
             @can('productAdd')
                 <a class="btn btn-outline-primary float-right" href="{{ route('product-add') }}">
                     <ion-icon name='add-circle-outline'></ion-icon> Thêm Product
                 </a>
             @endcan
+            
         </tr>
         <tr>
             <th width="5%">STT</th>
@@ -45,7 +53,8 @@
                 <td>
                     @foreach ($product->category as $cate)
                         <ul style="list-style-type: circle;">
-                            <li> <a href="{{ route('product-show', ['slug' => $cate->slug]) }}">{{ $cate->name }}</a> </li>
+                            <li> <a href="{{ route('product-show', ['slug' => $cate->slug]) }}">{{ $cate->name }}</a>
+                            </li>
                         </ul>
                     @endforeach
                 </td>

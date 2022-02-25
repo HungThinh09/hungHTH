@@ -4,12 +4,22 @@
 @section('js')
 @endsection
 @section('sort-menu')
+<ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="{{ route('admin') }}">Home</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('category-show') }}">Category</a></li>
+</ol>
 @endsection
 @section('noidung')
     @include('admin/layout/alert')
 
     <table class="table ">
-        <tr><a class="btn btn-outline-primary float-right" href="{{ route('category-add') }}">Thêm danh mục</a></tr>
+        <tr>
+           @can('categoryRestore')
+           <a class="btn btn-outline-primary float-right" href="{{ route('category-restore') }}"><ion-icon name="arrow-back-circle-outline"></ion-icon> Danh mục đã xóa</a>
+           @endcan
+            @can('categoryAdd')
+            <a class="btn btn-outline-primary float-right" href="{{ route('category-add') }}"><ion-icon name="add-circle-outline"></ion-icon> Thêm danh mục</a></tr>
+            @endcan
         <tr>
             <th>STT</th>
             <th>Name</th>

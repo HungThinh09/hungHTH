@@ -38,14 +38,16 @@
                                     </a>
                                 </div>
                                 <div>
+                                    @can('orderDelete')
                                     <form action="{{route('order-delete',['CodeId'=> $customer->CodeId])}}" method="post">
                                         @csrf
                                         @method('delete')
                                         <button class="btn btn-danger" type="submit"
                                             onclick="return confirm('Bạn có chắc chắn muốn xóa: {{ $customer->CodeId }}')">
-                                            <ion-icon name="trash-outline"></ion-icon>
+                                           <ion-icon name="trash-outline"></ion-icon>
                                         </button>
                                     </form>
+                                    @endcan
                                 </div>
 
 

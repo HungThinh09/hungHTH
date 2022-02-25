@@ -144,14 +144,14 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        {{-- @can('userList') --}}
+                        @can('orderList')
                             <li class="nav-item">
                                 <a href="{{ route('order-show') }}" class="nav-link ">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Danh sách order</p>
                                 </a>
                             </li>
-                        {{-- @endcan --}}
+                        @endcan
 
                         
                     </ul>

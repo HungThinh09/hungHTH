@@ -45,6 +45,10 @@
             <input class="form-control" name="price" value="{{old('price')}}" placeholder="nhập giáo sản phẩm" id="price">
         </div>
         <div class="form-group">
+            <label for="sale">Khuyến mãi (%)</label>
+            <input class="form-control" name="sale" value="{{old('sale')}}" placeholder="Nhập % khuyến mãi, mặc định =0" id="sale">
+        </div>
+        <div class="form-group">
             <label for="image">Image</label>
             <input class="form-control-file" value="{{old('image')}}" type="file" name="image" id="image">
         </div>

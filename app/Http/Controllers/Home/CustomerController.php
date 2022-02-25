@@ -90,10 +90,9 @@ class CustomerController extends Controller
     {
         $data = $req->validate(
             [
-                'maId' => 'required|integer',
+                'maId' => 'required',
             ],
             [
-                'maiId.integer' => 'Mã đơn hàng không hợp lệ',
                 'maId.required' => 'Mã đơn hàng không được để trống'
             ]
         );

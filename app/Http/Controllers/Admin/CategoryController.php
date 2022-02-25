@@ -95,4 +95,26 @@ class CategoryController extends Controller
         }
       return redirect()->back()->with('error','DO not found this category');
     }
+    public function restore(){
+        $category=$this->category->onlyTrashed()->paginate(20);
+       
+        return view('admin.category.restore',[
+            'title' => 'Restore Category',
+            'tieude' => 'Danh sách Danh mục bị xóa',
+            'category' => $category
+        ]);
+    }
+    public function restored($id){
+        $category=$this->category->onlyTrashed()->where('id',$id)->first();  
+        if($category != null){
+            $category->restore();
+        }
+      
+        return redirect()->back()->with('success','Đã khôi phục thành công danh mục '. $category->name);
+    }
+    public function deleteOver($id){
+        $category=$this->category->withTrashed()->where('id',$id)->first();  
+        $category->forceDelete();
+        return redirect()->back()->with('success','Đã xóa khỏi Database danh mục '. $category->name);
+    }
 }

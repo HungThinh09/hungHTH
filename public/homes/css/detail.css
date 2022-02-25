@@ -11,7 +11,8 @@
     margin-right: 10px;
 }
 .contentRight{
-    background: rgba(255, 255, 255,0.7)
+    background: rgba(255, 255, 255,0.7);
+    overflow: hidden !important;
 }
 .productLienquan .titleLienquan{
     font-size: 1.2em;
@@ -29,26 +30,30 @@
 
 .contentRight {
     padding-left: 20px; 
+    overflow: hidden;
 }
 
 .contentRight .imageProduct {
     margin: 10px 0px;
     border-radius: 10px;
     overflow: hidden;
-    border: green 2px;
-    border-style: dotted dashed solid double;
+    
 }
 
 .contentRight img {
-    width: 100%
+    width: 100%;
+   
 }
 
 .contentRight .imageProduct .imageProduct-iteam {
     margin: 10px 0;
+    box-shadow: 5px 5px 5px #d8abab;
 }
 
 .contentRight .infoProduct {
     padding-left: 2em;
+    overflow: hidden ;
+
 
 }
 

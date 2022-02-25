@@ -8,13 +8,15 @@ return [
         'user',
         'role',
         'permisstion',
-        'oder',
+        'order',
         'menu',
     ],
     'module_child' => [
         'List',
         'Add',
         'Edit',
-        'Delete'
+        'Delete',
+        'Restore',
+        'ForceDelete',
     ]
 ];

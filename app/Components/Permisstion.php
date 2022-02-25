@@ -17,11 +17,15 @@ class Permisstion{
         Gate::define('categoryEdit', 'App\Policies\CategoryPolicy@update');
         Gate::define('categoryAdd', 'App\Policies\CategoryPolicy@create');
         Gate::define('categoryDelete', 'App\Policies\CategoryPolicy@delete');
+        Gate::define('categoryRestore', 'App\Policies\CategoryPolicy@restore');
+        Gate::define('categoryForceDelete', 'App\Policies\CategoryPolicy@forceDelete');
   
         Gate::define('productList', 'App\Policies\ProductPolicy@view');
         Gate::define('productEdit', 'App\Policies\ProductPolicy@update');
         Gate::define('productAdd', 'App\Policies\ProductPolicy@create');
         Gate::define('productDelete', 'App\Policies\ProductPolicy@delete');
+        Gate::define('productRestore', 'App\Policies\ProductPolicy@restore');
+        Gate::define('productForceDelete', 'App\Policies\ProductPolicy@forceDelete');
 
         Gate::define('sliderList', 'App\Policies\SliderPolicy@view');
         Gate::define('sliderEdit', 'App\Policies\SliderPolicy@update');
@@ -47,5 +51,10 @@ class Permisstion{
         Gate::define('permisstionEdit', 'App\Policies\PermisstionPolicy@update');
         Gate::define('permisstionAdd', 'App\Policies\PermisstionPolicy@create');
         Gate::define('permisstionDelete', 'App\Policies\PermisstionPolicy@delete');
+
+        Gate::define('orderList', 'App\Policies\OrderPolicy@view');
+        Gate::define('orderEdit', 'App\Policies\OrderPolicy@update');
+        Gate::define('orderAdd', 'App\Policies\OrderPolicy@create');
+        Gate::define('orderDelete', 'App\Policies\OrderPolicy@delete');
     }
 }

@@ -23,8 +23,9 @@
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                         {{-- <a class="dropdown-item" href="{{route('home-category',['slug'=>$cate->slug])}}">All product</a> --}}
                                         @foreach ($cate->chilCategory as $item)
-                                        <a class="dropdown-item" href="{{route('home-category',['slug'=>$item->slug])}}">{{ $item->name}}</a>
-                                        
+                                        @if ($item->addMenu==1)
+                                        <a class="dropdown-item" href="{{route('home-category',['slug'=>$item->slug])}}">{{ $item->name}}</a>                  
+                                        @endif                                    
                                         @endforeach
                                         <div class="dropdown-divider"></div>
                                     </div>
@@ -49,11 +50,8 @@
                         </div>
                         @endif
                     </div>
-
                 </div>
-
             </nav>
-
         </div>
     </div>
 </div>

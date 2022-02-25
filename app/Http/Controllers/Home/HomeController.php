@@ -137,7 +137,7 @@ class HomeController extends Controller
         $htmlOption = $this->getCategory($cateId);
         $categoryMenu = $this->category->where('parent_id', 0)->where('addMenu', 1)->where('active', 1)->orderby('id', 'DESC')->get();
         $tieude = $name != null ?  $name : "";
-        $products = $products->paginate(12);
+        $products = $products->paginate(10);
         $productLienquan = $this->product->orderbyRaw('rand()')->limit(5)->get();
         return view('home.product.search', [
             'title' =>   'Search - Product',

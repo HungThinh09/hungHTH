@@ -22,12 +22,15 @@
                 @method('get')
                 <select name="status" id="status" class="btn btn-app">
                     <option {{ $order->status == 0 ? 'selected' : '' }} value="0">Đang sử lý</option>
-                    <option {{ $order->status == 1 ? 'selected' : '' }} value="1">Chuẩn bị giao hàng</option>
-                    <option {{ $order->status == 2 ? 'selected' : '' }} value="2">Đang giao hàng</option>
+                    <option {{ $order->status == 1 ? 'selected' : '' }} value="1">Đang lấy hàng</option>
+                    <option {{ $order->status == 2 ? 'selected' : '' }} value="2">Đang gửi hàng</option>
                     <option {{ $order->status == 3 ? 'selected' : '' }} value="3">Giao hàng thành công</option>
                     <option {{ $order->status == -1 ? 'selected' : '' }} value="-1">Hủy đơn</option>
                 </select>
+                @can('orderEdit')
                 <button type="submit">Sửa trạng thái</button>
+                @endcan
+                
             </form>
         </div>
     </div>

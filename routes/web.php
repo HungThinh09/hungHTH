@@ -68,6 +68,10 @@ route::prefix('admin')->middleware('auth')->group(function () {
     route::get('category/edit/{id}', [CategoryController::class, 'edit'])->name('category-edit')->middleware('can:categoryEdit');
     route::get('category/update', [CategoryController::class, 'update'])->name('category-update')->middleware('can:categoryEdit');
     route::delete('category/delete/{id}', [CategoryController::class, 'delete'])->name('category-delete')->middleware('can:categoryDelete');
+    route::get('category/restore', [CategoryController::class, 'restore'])->name('category-restore')->middleware('can:categoryRestore');
+    route::delete('category/deleteOver/{id}', [CategoryController::class, 'deleteOver'])->name('category-deleteOver')->middleware('can:categoryForceDelete');
+    route::get('category/restored/{id}', [CategoryController::class, 'restored'])->name('category-restored');
+
 
     //-----------------------Menu
     route::get('menu', [MenuController::class, 'show'])->name('menu-show')->middleware('can:menuList');
@@ -83,8 +87,10 @@ route::prefix('admin')->middleware('auth')->group(function () {
     route::get('product/create', [ProductController::class, 'create'])->name('product-create')->middleware('can:productAdd');
     route::get('product/edit/{id}', [ProductController::class, 'edit'])->name('product-edit')->middleware('can:productEdit,id');
     route::get('product/update', [ProductController::class, 'update'])->name('product-update');
-    route::delete('product/delete/{id}', [ProductController::class, 'delete'])->name('product-delete')->middleware('can:productDelete, abk');
-    // route::delete('product/delete/{id}', [ProductController::class, 'delete'])->name('product-delete')->middleware('can:productDelete, id');
+    route::delete('product/delete/{id}', [ProductController::class, 'delete'])->name('product-delete')->middleware('can:productDelete, id');
+    route::get('product/restore', [ProductController::class, 'restore'])->name('product-restore')->middleware('can:productRestore');
+    route::delete('product/deleteOver/{id}', [ProductController::class, 'deleteOver'])->name('product-deleteOver')->middleware('can:productForceDelete');
+    route::get('product/restored/{id}', [ProductController::class, 'restored'])->name('product-restored');
 
     //-----------------------Slider
     route::get('slider', [SliderController::class, 'show'])->name('slider-show')->middleware('can:sliderList');
@@ -129,11 +135,9 @@ route::prefix('admin')->middleware('auth')->group(function () {
 
 
     //-----------------------Order
-    route::get('List-Order', [AdminOrderController::class, 'show'])->name('order-show');
-    route::get('List-Order/detail/{CodeId}', [AdminOrderController::class, 'detail'])->name('order-detail');
-    route::get('List-Order/detail/status/{CodeId}', [AdminOrderController::class, 'changeStatus'])->name('changeStatus');
-    route::get('List-Order/customerInfomation-{CodeId}', [AdminOrderController::class, 'customerInfomation'])->name('customerInfomation');
-    route::delete('List-Order/{CodeId}', [AdminOrderController::class, 'delete'])->name('order-delete');
-
-
+    route::get('List-Order', [AdminOrderController::class, 'show'])->name('order-show')->middleware('can:orderList');
+    route::get('List-Order/detail/{CodeId}', [AdminOrderController::class, 'detail'])->name('order-detail')->middleware('can:orderList');
+    route::get('List-Order/detail/status/{CodeId}', [AdminOrderController::class, 'changeStatus'])->name('changeStatus')->middleware('can:orderEdit');
+    route::get('List-Order/customerInfomation-{CodeId}', [AdminOrderController::class, 'customerInfomation'])->name('customerInfomation')->middleware('can:orderList');
+    route::delete('List-Order/{CodeId}', [AdminOrderController::class, 'delete'])->name('order-delete')->middleware('can:orderDelete')->middleware('can:orderDelete');
 });

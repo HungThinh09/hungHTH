@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Product;
 use App\Models\User;
+use App\Models\customer;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class OrderPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +25,12 @@ class ProductPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\customer  $customer
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(User $user)
     {
-        return $user->checkPer('productList');
+        return $user->checkPer('orderList');
     }
 
     /**
@@ -40,74 +40,58 @@ class ProductPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function create(User $user)
-    {   
-        return $user->checkPer('productAdd');
+    {
+        
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\customer  $customer
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user,$id)
-    { 
-        $role=$user->roles->contains('name','admin');
-        if($role==true){
-            return true;
-        }
-        $product=Product::where('id',$id)->first('userId');
-        
-        if($product->userId != $user->id){
-            return false;
-        }
-        return $user->checkPer('productEdit');
+    public function update(User $user)
+    {
+        return $user->checkPer('orderEdit');
+
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\customer  $customer
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user,$id)
+    public function delete(User $user)
     {
-        $role=$user->roles->contains('name','admin');
-        if($role==true){
-            return true;
-        }
-       
-        $product=Product::where('id',$id)->first('userId');
-        
-        if($product->userId != $user->id){
-            return false;
-        }
-        return $user->checkPer('productDelete');
+        return $user->checkPer('orderDelete');
+
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\customer  $customer
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function restore(User $user)
     {
-        return $user->checkPer('productRestore');
+        return $user->checkPer('orderRestore');
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Product  $product
+     * @param  \App\Models\customer  $customer
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function forceDelete(User $user)
     {
-        return $user->checkPer('productForceDelete');
+        return $user->checkPer('orderforceDelete');
+
     }
 }

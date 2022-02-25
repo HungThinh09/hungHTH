@@ -12,4 +12,5 @@
 @endsection
 @section('noidung')
     @include('admin/layout/alert')
+    <h1>Xin chao</h1>
 @endsection

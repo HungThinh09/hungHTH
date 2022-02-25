@@ -51,7 +51,7 @@ class MenuPolicy
      * @param  \App\Models\Menu  $menu
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Menu $menu)
+    public function update(User $user)
     {
         return $user->checkPer('menuEdit');
     }

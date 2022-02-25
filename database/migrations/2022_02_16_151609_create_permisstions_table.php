@@ -17,7 +17,7 @@ class CreatePermisstionsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('display');
-            $table->tinyInteger('parent_id')->default(0);
+            $table->integer('parent_id')->default(0);
             $table->string('key',255)->nullable();
         });
     }
