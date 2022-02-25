@@ -45,102 +45,100 @@ class HomeController extends Controller
     }
     public function category($slug)
     {
-        $htmlOption=$this->getCategory();
+        $htmlOption = $this->getCategory();
         $categoryMenu = $this->category->where('parent_id', 0)->where('addMenu', 1)->where('active', 1)->orderby('id', 'DESC')->get();
         $category = $this->category->where('slug', $slug)->first();
-
-        $categorychil = $this->category->where('parent_id', $category->id)->get();
+        $catechild = $this->category->where('parent_id', $category->id)->select('id')->get();
         $products = $this->product->orderby('id', 'desc')
-            ->join('product_categories', 'product_categories.productId', 'products.id')
-
+            ->join('product_categories', 'products.id', 'product_categories.productId')
             ->where('product_categories.categoryId', $category->id)
-
+            ->orwhere('product_categories.categoryId', $category->parent_id)
             ->paginate(5);
-          
         return view('home.product.productList', [
             'title' => $category->name . ' - Product',
             'tieude' => $category->name,
             'products' => $products,
             'categoryMenu' => $categoryMenu,
             'htmlOption' =>  $htmlOption,
-           
+
         ]);
     }
-
-
     public function search(Request $req)
     {
-        $tieude="";
-        $name=$price1=$price2="";
+        $tieude = "";
+        $name = $price1 = $price2 = "";
         $name = $req->input('name', "");
         $cateId = $req->input('category', "");
-        $price1 = !empty($req->price1)?$req->price1:0;
-        $price2 = !empty($req->price2)?$req->price2:0;
+        $price1 = !empty($req->price1) ? $req->price1 : 0;
+        $price2 = !empty($req->price2) ? $req->price2 : 0;
         $price2 = $req->input('price2', 0);
-        if($price2<$price1 && $price2 !=0){
-            return redirect()->back()->with('error','Giá nhập sau phải lớn hơn giá trước');
+        if ($price2 < $price1 && $price2 != 0) {
+            return redirect()->back()->with('error', 'Giá nhập sau phải lớn hơn giá trước');
         }
         $search = $req->search ? $req->search : '';
-        if($search!=''){
-            $products=$this->product
-            ->where('productName', 'like','%'.$search.'%');
-            $tieude=$search;
-        }else{
+        if ($search != '') {
+            $products = $this->product
+                ->where('productName', 'like', '%' . $search . '%');
+            $tieude = $search;
+        } else {
             if ($cateId) {
-                if($name && $price2 ){
-                   $products=$this->product
-                    ->join('product_categories', 'product_categories.productId', 'products.id')
-                    ->where('productName', 'like','%'.$name.'%')
-                    ->where('product_categories.categoryId', $cateId)
-                    ->whereBetween('price', [$price1, $price2]); 
-                }elseif($price2){
-                    $products=$this->product
-                    ->join('product_categories', 'product_categories.productId', 'products.id')
-                    ->where('product_categories.categoryId', $cateId)
-                    ->whereBetween('price', [$price1, $price2]); 
-                }elseif($name){
-                    $products=$this->product
-                    ->join('product_categories', 'product_categories.productId', 'products.id')
-                    ->where('productName', 'like','%'.$name.'%')
-                    ->where('product_categories.categoryId', $cateId);
-                }else{
-                    $products=$this->product
-                    ->join('product_categories', 'product_categories.productId', 'products.id')
-                    ->where('product_categories.categoryId', $cateId)
-                    ->where('price','>=',$price1);
+                if ($name && $price2) {
+                    $products = $this->product
+                        ->join('product_categories', 'product_categories.productId', 'products.id')
+                        ->where([
+                            ['productName', 'like', '%' . $name . '%'],
+                            ['product_categories.categoryId', $cateId]
+                        ])
+                        ->whereBetween('price', [$price1, $price2]);
+                } elseif ($price2) {
+                    $products = $this->product
+                        ->join('product_categories', 'product_categories.productId', 'products.id')
+                        ->where('product_categories.categoryId', $cateId)
+                        ->whereBetween('price', [$price1, $price2]);
+                } elseif ($name) {
+                    $products = $this->product
+                        ->join('product_categories', 'product_categories.productId', 'products.id')
+                        ->where([
+                            ['productName', 'like', '%' . $name . '%'],
+                            ['product_categories.categoryId', $cateId],
+                            ['price', '>=', $price1]
+                        ]);
+                } else {
+                    $products = $this->product
+                        ->join('product_categories', 'product_categories.productId', 'products.id')
+                        ->where([
+                            ['product_categories.categoryId', $cateId],
+                            ['price', '>=', $price1]
+                        ]);
                 }
-             
-            } else  {
-                if($name && $price2 ){
-     
-                    $products=$this->product
-                    ->where('productName', 'like','%'.$name.'%')
-                    ->whereBetween('price', [$price1, $price2]); 
-                             
-                }elseif($price2){
-                    $products=$this->product
-                    ->whereBetween('price', [$price1, $price2]);
-                 
-                }elseif($name){
-               
-                    $products=$this->product
-                    ->where('productName', 'like','%'.$name.'%');
-                   
-                }else{    
-                        
-                    $products=$this->product
-                    ->where('price','>=',$price1);
+            } else {
+                if ($name && $price2) {
+
+                    $products = $this->product
+                        ->where('productName', 'like', '%' . $name . '%')
+                        ->whereBetween('price', [$price1, $price2]);
+                } elseif ($price2) {
+                    $products = $this->product
+                        ->whereBetween('price', [$price1, $price2]);
+                } elseif ($name) {
+
+                    $products = $this->product
+                        ->where(
+                            ['productName', 'like', '%' . $name . '%'],
+                            ['price', '>=', $price1]
+                        );
+                } else {
+                    $products = $this->product
+                        ->where('price', '>=', $price1);
                 }
             }
         }
-       
-        $htmlOption=$this->getCategory($cateId);
-        $categoryMenu = $this->category->where('parent_id', 0)->where('addMenu', 1)->where('active', 1)->orderby('id', 'DESC')->get();
-        $tieude= $name!=null ?  $name: "";
-        $products=$products->paginate(12);
-        $productLienquan=$this->product->orderbyRaw('rand()')->limit(5)->get();
-     
 
+        $htmlOption = $this->getCategory($cateId);
+        $categoryMenu = $this->category->where('parent_id', 0)->where('addMenu', 1)->where('active', 1)->orderby('id', 'DESC')->get();
+        $tieude = $name != null ?  $name : "";
+        $products = $products->paginate(12);
+        $productLienquan = $this->product->orderbyRaw('rand()')->limit(5)->get();
         return view('home.product.search', [
             'title' =>   'Search - Product',
             'tieude' => $tieude,
@@ -155,21 +153,22 @@ class HomeController extends Controller
         ]);
     }
 
-    public function productDetail($slug){
-        $htmlOption=$this->getCategory();
+    public function productDetail($slug)
+    {
+        $htmlOption = $this->getCategory();
         $categoryMenu = $this->category->where('parent_id', 0)->where('addMenu', 1)->where('active', 1)->orderby('id', 'DESC')->get();
-        $product=$this->product->where('ProductSlug',$slug)->first();
-        
-        if($product==null){
-            return  redirect()->back()->with('error','Do not found product');
+        $product = $this->product->where('ProductSlug', $slug)->first();
+
+        if ($product == null) {
+            return  redirect()->back()->with('error', 'Do not found product');
         }
-        return view('home.product.productDetail',[
+        return view('home.product.productDetail', [
             'title' => "Product",
             'tieude' => $product->productName,
             'product' => $product,
             'categoryMenu' => $categoryMenu,
             'htmlOption' =>  $htmlOption,
-          
+
 
         ]);
     }

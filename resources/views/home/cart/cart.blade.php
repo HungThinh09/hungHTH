@@ -38,10 +38,12 @@
                     </tr>
                 </thead>
                 <tbody>
-
-                    @foreach ($cart->items as $key => $item)
+                    @php
+                        $stt=1;
+                    @endphp
+                    @foreach ($cart->items as $item)
                         <tr>
-                            <td>{{ $key }}</td>
+                            <td>{{ $stt }} </td>
                             <td>{{ $item['name'] }}</td>
                             <td>{{ $item['image'] }}</td>
                             <td>{{ number_format($item['priceSale']) }}</td>
@@ -60,8 +62,10 @@
                             <td>
                                 <a href="{{ route('cartRemove', ['id' => $item['id']]) }}"  onclick="return confirm('Are you sure?')" class="btn btn-danger">Xóa Sản phẩm</a>
                             </td>
-
                         </tr>
+                        @php
+                        $stt ++;
+                    @endphp
                     @endforeach
                      
                     <tr>
@@ -70,7 +74,7 @@
                     </tr>
                     <tr>
                         <td colspan="5">Thành tiền</td>
-                        <td colspan="1">{{ $cart->total_price }}</td>
+                        <td colspan="1">{{ number_format($cart->total_price) }}</td>
                         <td>
                             <a href="{{ route('payment') }}" class="btn btn-success">Thanh toán</a>
                             <a href="{{ route('cartClear') }}" onclick="return confirm('Bạn có chắc chắn muốn xóa giỏ hàng')" class="btn btn-danger">Xóa Giỏ hàng</a>
