@@ -1,0 +1,47 @@
+#cart{
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: tomato;
+   
+    border-radius: 50%;
+    font-size: 30px;
+    position: fixed;
+    bottom: 40px;
+    left: 20px;
+    cursor: pointer;
+    transition: 0.75s ease-in-out;
+}
+#cart a{
+    color: rgb(198, 252, 117);
+}
+#cart:hover{
+    background-color: greenyellow;
+    transform: scale(1.2);
+}
+#cart:hover a{
+    color: tomato;
+}
+#cart .soProduct, .carts .soProduct{
+    font-size: 10px;
+    position: absolute;
+    right: 1px;
+    top: 0px;
+    background-color: rgb(215, 238, 10);
+    border-radius: 30%;
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 50% ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.carts .soProduct{
+    top: 7px;
+    transition: 0.5s ease-in-out all;
+}
+ #cart:hover .soProduct, .carts:hover .soProduct{
+   transform: scale(1.2);
+}

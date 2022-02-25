@@ -1,0 +1,57 @@
+.thongBao{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    max-height: 300px;
+    width: 100%;
+
+}
+.contentLeft{
+    box-shadow: 5px 5px 4px #888888;
+    margin-right: 10px;
+}
+.contentRight{
+    background: rgba(255, 255, 255,0.7)
+}
+.productLienquan .titleLienquan{
+    font-size: 1.2em;
+    color: red;
+    margin: 10px 0 10px 1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+.contentRight .title {
+    margin: 10px 5px;
+    cursor: pointer;
+    font-weight: bold;
+    color: red;
+}
+
+.contentRight {
+    padding-left: 20px; 
+}
+
+.contentRight .imageProduct {
+    margin: 10px 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: green 2px;
+    border-style: dotted dashed solid double;
+}
+
+.contentRight img {
+    width: 100%
+}
+
+.contentRight .imageProduct .imageProduct-iteam {
+    margin: 10px 0;
+}
+
+.contentRight .infoProduct {
+    padding-left: 2em;
+
+}
+
+.contentRight .infoProduct #pills-tabContent {
+    padding: 5px 0 10px 20px;
+}
