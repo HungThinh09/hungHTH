@@ -60,13 +60,13 @@
             </div>
 
             <div class="row ">
-                <div class="col-4 imageProduct">
+                <div class="col col-md-4 imageProduct">
                     <img class="imageProduct-iteam" src="{{ asset('uploads/product/' . $product->image) }}" alt="">
                     @if ($product->images != '')
                         <div class="owl-carousel owl-theme">
                             @foreach (explode('!', $product->images) as $image)
                                 <div class="item">
-                                    <img src="{{ asset('uploads/product/' . $image) }}" alt="">
+                                    <img width="100px" src="{{ asset('uploads/product/' . $image) }}" alt="">
                                 </div>
                             @endforeach
 
@@ -75,7 +75,7 @@
 
                 </div>
 
-                <div class="col-8 infoProduct">
+                <div class="col-md-8 col-12 infoProduct">
                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"

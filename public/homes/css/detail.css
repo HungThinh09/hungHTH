@@ -60,3 +60,7 @@
 .contentRight .infoProduct #pills-tabContent {
     padding: 5px 0 10px 20px;
 }
+.item img{
+    min-height: 50px;
+  
+}
