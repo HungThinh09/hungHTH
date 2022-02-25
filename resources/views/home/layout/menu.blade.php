@@ -21,7 +21,7 @@
                                         {{ $cate->name }}
                                     </a>
                                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <a class="dropdown-item" href="{{route('home-category',['slug'=>$cate->slug])}}">All product</a>
+                                        {{-- <a class="dropdown-item" href="{{route('home-category',['slug'=>$cate->slug])}}">All product</a> --}}
                                         @foreach ($cate->chilCategory as $item)
                                         <a class="dropdown-item" href="{{route('home-category',['slug'=>$item->slug])}}">{{ $item->name}}</a>
                                         
