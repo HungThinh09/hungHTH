@@ -176,13 +176,14 @@ class ProductController extends Controller
                 'image' => $nameImage
             ]);
         }
+        $sale=$req->sale?$req->sale:0;
         $product->update([
             'productName' => $data['name'],
             'productSlug' => str::slug($data['name']),
             'active' => $req->input('active', 0),
             'status' => $req->input('status', 0),
             'price' => $data['price'],
-            'sale' => $req->input('sale', 0),
+            'sale' =>  $sale,
             'userEdit' => auth::id(),
             'tag' => implode('!', $req->input('tag')),
             'description' => $req->input('description', ''),

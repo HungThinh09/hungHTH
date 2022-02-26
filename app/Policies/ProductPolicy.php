@@ -77,13 +77,13 @@ class ProductPolicy
         $role=$user->roles->contains('name','admin');
         if($role==true){
             return true;
-        }
-       
-        $product=Product::where('id',$id)->first('userId');
+        }  
+        $product=Product::find($id);
         
-        if($product->userId != $user->id){
+        if(  $user->id != $product->userId){
             return false;
         }
+     
         return $user->checkPer('productDelete');
     }
 

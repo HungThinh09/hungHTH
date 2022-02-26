@@ -121,12 +121,11 @@ class HomeController extends Controller
                     $products = $this->product
                         ->whereBetween('price', [$price1, $price2]);
                 } elseif ($name) {
-
                     $products = $this->product
-                        ->where(
-                            ['productName', 'like', '%' . $name . '%'],
-                            ['price', '>=', $price1]
-                        );
+                    ->where([
+                        ['productName', 'like', '%' . $name . '%'],
+                        ['price', '>=', $price1]
+                    ]);
                 } else {
                     $products = $this->product
                         ->where('price', '>=', $price1);
